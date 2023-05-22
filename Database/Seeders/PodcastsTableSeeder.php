@@ -4,10 +4,10 @@ namespace Modules\Podcasts\Database\Seeders;
 
 use Faker\Factory;
 use Illuminate\Database\Seeder;
+use Nwidart\Modules\Laravel\Module;
 use Modules\Podcasts\Entities\Podcast;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Podcasts\Entities\PodcastCategories;
-use Nwidart\Modules\Facades\Module;
 
 class PodcastsTableSeeder extends Seeder
 {

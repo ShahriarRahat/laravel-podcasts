@@ -2,8 +2,8 @@
 
 namespace Modules\Podcasts\Providers;
 
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Database\Eloquent\Factory;
 
 class PodcastsServiceProvider extends ServiceProvider
 {
@@ -111,4 +111,5 @@ class PodcastsServiceProvider extends ServiceProvider
         }
         return $paths;
     }
+
 }
