@@ -3,9 +3,10 @@
 namespace Modules\Podcasts\Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Nwidart\Modules\Facades\Module;
 use Modules\Podcasts\Entities\Podcast;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\Factory;
+use Modules\Podcasts\Entities\PodcastEpisodes;
 
 class PodcastEpisodesTableSeeder extends Seeder
 {
@@ -30,7 +31,19 @@ class PodcastEpisodesTableSeeder extends Seeder
 
         $podcasts = Podcast::all();
         foreach ($podcasts as $podcast) {
-            $podcast->episodes()->saveMany(Factory::of(Modules\Podcasts\Entities\PodcastEpisode::class)->make());
+            for($i = 0; $i < random_int(3, 9); $i++) {
+                PodcastEpisodes::create([
+                    'title' => $podcast->title,
+                    'description' => $podcast->description,
+                    'episode_number' => $podcast->episode_number,
+                    'podcast_id' => $podcast->id,
+                    'image' => $podcast->image,
+                    'audio_url' => Module::asset('podcasts:assets/podcasts/audio/'.$i.'mp3'),
+                    'duration' => gmdate('H:i:s', random_int(3600, 86400)),
+                    'release_date' => $podcast->release_date,
+                    'published' => $podcast->published,
+                ]);
+            }
         }
     }
 }
