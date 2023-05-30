@@ -30,6 +30,11 @@ class PodcastEpisodesTableSeeder extends Seeder
         // $table->boolean('published')->default(false);
 
         $podcasts = Podcast::all();
+        $path = 'podcasts/podcasts/';
+
+            /**********  if you have index.php outside of the public directory the uncomment the line below  **********/
+            // $path = 'public/podcasts/podcasts/';
+
         foreach ($podcasts as $podcast) {
             for($i = 0; $i < random_int(3, 9); $i++) {
                 PodcastEpisodes::create([
@@ -37,9 +42,9 @@ class PodcastEpisodesTableSeeder extends Seeder
                     'description' => $podcast->description,
                     'episode_number' => $podcast->episode_number,
                     'podcast_id' => $podcast->id,
-                    'image' => $podcast->image,
-                    'audio_url' => Module::asset('podcasts:assets/podcasts/audio/'.$i.'mp3'),
-                    'duration' => gmdate('H:i:s', random_int(3600, 86400)),
+                    'image' => asset($path.'images/'.$i.'jpeg'),
+                    'audio_url' => asset($path.'audio/'.$i.'mp3'),
+                    'duration' => gmdate('H:i:s', random_int(360, 8640)),
                     'release_date' => $podcast->release_date,
                     'published' => $podcast->published,
                 ]);

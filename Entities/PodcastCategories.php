@@ -9,10 +9,14 @@ class PodcastCategories extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
-    
-    protected static function newFactory()
+    // protected static function newFactory()
+    // {
+    //     return \Modules\Podcasts\Database\factories\PodcastCategoriesFactory::new();
+    // }
+
+    public function podcasts()
     {
-        return \Modules\Podcasts\Database\factories\PodcastCategoriesFactory::new();
+        return $this->hasMany(Podcast::class, 'category_id', 'id');
     }
+
 }

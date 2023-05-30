@@ -9,10 +9,16 @@ class FavoritePodcasts extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
-    
-    protected static function newFactory()
-    {
-        return \Modules\Podcasts\Database\factories\FavoritePodcastsFactory::new();
+    // protected static function newFactory()
+    // {
+    //     return \Modules\Podcasts\Database\factories\FavoritePodcastsFactory::new();
+    // }
+
+    public function podcast(){
+        return $this->belongsTo(Podcast::class, 'id', 'podcast_id');
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class, 'id', 'user_id');
     }
 }

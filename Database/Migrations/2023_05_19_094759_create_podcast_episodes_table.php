@@ -25,6 +25,11 @@ return new class extends Migration
             $table->date('release_date')->nullable();
             $table->boolean('published')->default(false);
             $table->string('status')->default(App\Enums\Status::ACTIVE);
+            $table->unsignedBigInteger('likes_count')->default(0);
+            $table->unsignedBigInteger('comments_count')->default(0);
+            $table->unsignedBigInteger('views_count')->default(0);
+            $table->unsignedBigInteger('shares_count')->default(0);
+            $table->unsignedBigInteger('downloads_count')->default(0);
 
             $table->timestamps();
         });

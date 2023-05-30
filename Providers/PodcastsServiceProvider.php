@@ -4,6 +4,7 @@ namespace Modules\Podcasts\Providers;
 
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\ServiceProvider;
+use Modules\Podcasts\Console\LinkPodcastsAsset;
 
 class PodcastsServiceProvider extends ServiceProvider
 {
@@ -53,6 +54,9 @@ class PodcastsServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             module_path($this->moduleName, 'Config/config.php'), $this->moduleNameLower
         );
+        $this->commands([
+            LinkPodcastsAsset::class,
+        ]);
     }
 
     /**

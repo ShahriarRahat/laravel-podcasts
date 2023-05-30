@@ -28,7 +28,7 @@ class PodcastsTableSeeder extends Seeder
                     'title' => $faker->name,
                     'description' => $faker->text,
                     'user_id' => 1,
-                    'image' => asset('podcasts:assets/podcasts/images/'.$i.'jpeg'),
+                    'image' => $category->image,
                     'category_id' => $category->id,
                     'published' => true,
                     'category_id' => $category->id

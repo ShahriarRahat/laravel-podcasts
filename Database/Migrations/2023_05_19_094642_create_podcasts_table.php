@@ -21,7 +21,15 @@ return new class extends Migration
             $table->string('image')->comment('path')->nullable();
             $table->foreignId('category_id')->nullable()->constrained('podcast_categories')->onDelete('cascade');
             $table->boolean('published')->default(false);
+            $table->boolean('downloadable')->default(false);
             $table->string('status')->default(App\Enums\Status::ACTIVE);
+            $table->enum('type', ['free', 'paid'])->default('free');
+            $table->integer('free_listenables')->nullable();
+            $table->unsignedBigInteger('likes_count')->default(0);
+            $table->unsignedBigInteger('comments_count')->default(0);
+            $table->unsignedBigInteger('views_count')->default(0);
+            $table->unsignedBigInteger('shares_count')->default(0);
+            $table->unsignedBigInteger('followers_count')->default(0)->comment('who have added this podcast as favorite');
 
             $table->timestamps();
         });

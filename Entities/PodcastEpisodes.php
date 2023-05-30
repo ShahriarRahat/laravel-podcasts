@@ -9,10 +9,12 @@ class PodcastEpisodes extends Model
 {
     use HasFactory;
 
-    protected $fillable = [];
-    
-    protected static function newFactory()
-    {
-        return \Modules\Podcasts\Database\factories\PodcastEpisodesFactory::new();
+    // protected static function newFactory()
+    // {
+    //     return \Modules\Podcasts\Database\factories\PodcastEpisodesFactory::new();
+    // }
+
+    public function podcast(){
+        return $this->belongsTo(Podcast::class, 'id', 'podcast_id');
     }
 }
