@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Modules\Podcasts\Http\Controllers\Api\PodcastsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/podcasts', function (Request $request) {
-    return $request->user();
+Route::prefix('/podcasts')->group(function () {
+    Route::get('/', [PodcastsController::class, 'index'])->name('podcasts.index');
+    Route::get('/categories', [PodcastsController::class, 'categories'])->name('podcasts.categories');
+    Route::get('/episodes', [PodcastsController::class, 'episodes'])->name('podcasts.episodes');
+    Route::get('/favorites', [PodcastsController::class, 'favorites'])->name('podcasts.favorites');
 });

@@ -36,11 +36,12 @@ class PodcastEpisodesTableSeeder extends Seeder
             // $path = 'public/podcasts/podcasts/';
 
         foreach ($podcasts as $podcast) {
+            $j = 1;
             for($i = 0; $i < random_int(3, 9); $i++) {
                 PodcastEpisodes::create([
                     'title' => $podcast->title,
                     'description' => $podcast->description,
-                    'episode_number' => $podcast->episode_number,
+                    'episode_number' => $j,
                     'podcast_id' => $podcast->id,
                     'image' => asset($path.'images/'.$i.'jpeg'),
                     'audio_url' => asset($path.'audio/'.$i.'mp3'),
@@ -48,6 +49,7 @@ class PodcastEpisodesTableSeeder extends Seeder
                     'release_date' => $podcast->release_date,
                     'published' => $podcast->published,
                 ]);
+                $j++;
             }
         }
     }

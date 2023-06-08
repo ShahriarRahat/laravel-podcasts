@@ -15,10 +15,15 @@ return new class extends Migration
     {
         Schema::create('podcast_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 50);
+            $table->string('title', 50)->index();
             $table->text('description')->nullable();
             $table->string('image')->comment('path')->nullable();
             $table->string('status')->default(App\Enums\Status::ACTIVE);
+            $table->unsignedBigInteger('likes_count')->default(0);
+            $table->unsignedBigInteger('comments_count')->default(0);
+            $table->unsignedBigInteger('views_count')->default(0);
+            $table->unsignedBigInteger('shares_count')->default(0);
+            $table->unsignedBigInteger('followers_count')->default(0)->comment('who have added this podcast category as favorite');
 
             $table->timestamps();
         });

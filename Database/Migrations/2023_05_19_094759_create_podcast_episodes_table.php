@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('podcast_episodes', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 191);
+            $table->string('title', 191)->index();
             $table->text('description')->nullable();
-            $table->integer('episode_number')->nullable();
+            $table->integer('episode_number')->nullable()->index();
             $table->foreignId('podcast_id')->constrained('podcasts')->onDelete('cascade');
             $table->string('image')->comment('path')->nullable();
             $table->string('audio_url')->comment('path')->nullable();
@@ -30,6 +30,7 @@ return new class extends Migration
             $table->unsignedBigInteger('views_count')->default(0);
             $table->unsignedBigInteger('shares_count')->default(0);
             $table->unsignedBigInteger('downloads_count')->default(0);
+            $table->unsignedBigInteger('followers_count')->default(0)->comment('who have added this podcast episode as favorite');
 
             $table->timestamps();
         });

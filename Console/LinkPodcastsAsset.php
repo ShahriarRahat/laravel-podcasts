@@ -13,7 +13,7 @@ class LinkPodcastsAsset extends Command
      *
      * @var string
      */
-    protected $name = 'link:podcasts-asset';
+    protected $name = 'link:podcasts-assets';
 
     /**
      * The console command description.

@@ -15,7 +15,7 @@ class Podcast extends Model
     // }
 
     public function category(){
-        return $this->belongsTo(PodcastCategories::class, 'id', 'category_id');
+        return $this->belongsTo(PodcastCategories::class, 'category_id', 'id');
     }
 
     public function episodes(){
@@ -28,5 +28,13 @@ class Podcast extends Model
 
     public function author(){
         return $this->belongsTo(User::class, 'id', 'user_id');
+    }
+
+    public function likes(){
+        return $this->morphMany(PodcastLikes::class, 'likeable');
+    }
+
+    public function comments(){
+        return $this->morphMany(PodcastComments::class, 'commentable');
     }
 }
