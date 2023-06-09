@@ -2,11 +2,14 @@
 
 namespace Modules\Podcasts\Http\Controllers\Api;
 
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\RespondsWithHttpStatus;
 use Modules\Podcasts\Entities\Podcast;
+use Illuminate\Support\Facades\Response;
+use Modules\Podcasts\Entities\PodcastLikes;
 use Illuminate\Contracts\Support\Renderable;
 use Modules\Podcasts\Entities\PodcastEpisodes;
 use Modules\Podcasts\Entities\FavoritePodcasts;
@@ -163,4 +166,64 @@ class PodcastsController extends Controller
         }
 
     }
+
+
+    ////////////////////////////////Like Unlike////////////////////////////////
+
+    public function likeUnlike($category, $id)
+    {
+        try {
+            if($category == 'podcast'){
+                $likeable_type = 'Modules\Podcasts\Entities\Podcast';
+            }elseif($category == 'category'){
+                $likeable_type = 'Modules\Podcasts\Entities\PodcastCategories';
+            }elseif($category == 'episode'){
+                $likeable_type = 'Modules\Podcasts\Entities\PodcastEpisodes';
+            }elseif($category == 'comment'){
+                $likeable_type = 'Modules\Podcasts\Entities\PodcastComments';
+            }else{
+                return $this->respondWithError('Sorry! '.ucfirst($category).' Isn\'t Allowed.',500);
+            }
+
+            $like = PodcastLikes::where('likeable_type', $likeable_type)
+                                ->where('likeable_id', $id)
+                                ->where('user_id', Auth::user()->id)
+                                ->first();
+            if($like){
+                try {
+                    $model = $likeable_type::find($id);
+                    $model->likes_count = $model->likes_count - 1;
+                    $model->save();
+                } catch (\Throwable $th) {
+                    return $this->respondWithError('Sorry! '.ucfirst($category).' Not Found.',500);
+                }
+
+                $like->delete();
+                $status = "Disliked";
+
+            }else{
+                try {
+                    $model = $likeable_type::find($id);
+                    $model->likes_count = $model->likes_count + 1;
+                    $model->save();
+                } catch (\Throwable $th) {
+                    return $this->respondWithError('Sorry! '.ucfirst($category).' Not Found.',500);
+                }
+
+                $like = new PodcastLikes();
+                $like->likeable_type = $likeable_type;
+                $like->likeable_id = $id;
+                $like->user_id = Auth::user()->id;
+                $like->save();
+                $status = "Liked";
+
+            }
+
+            return $this->respondWithSuccess(ucfirst($category).' '.$status.' Successfully');
+
+        } catch (\Throwable $th) {
+            return $this->respondWithError('Sorry! '.ucfirst($category).' Doesn\'t Exist',500);
+        }
+    }
+
 }

@@ -15,8 +15,9 @@ use Modules\Podcasts\Http\Controllers\Api\PodcastsController;
 */
 
 Route::prefix('/podcasts')->group(function () {
-    Route::get('/', [PodcastsController::class, 'index'])->name('podcasts.index');
-    Route::get('/categories', [PodcastsController::class, 'categories'])->name('podcasts.categories');
-    Route::get('/episodes', [PodcastsController::class, 'episodes'])->name('podcasts.episodes');
-    Route::get('/favorites', [PodcastsController::class, 'favorites'])->name('podcasts.favorites');
+    Route::get('/',                                     [PodcastsController::class, 'index'])->name('podcasts.index');
+    Route::get('/categories',                           [PodcastsController::class, 'categories'])->name('podcasts.categories');
+    Route::get('/episodes',                             [PodcastsController::class, 'episodes'])->name('podcasts.episodes');
+    Route::get('/favorites',                            [PodcastsController::class, 'favorites'])->name('podcasts.favorites');
+    Route::get('like-unlike/{category}/{id}',           [PodcastsController::class, 'likeUnlike'])->name('podcasts.likeUnlike');
 });
