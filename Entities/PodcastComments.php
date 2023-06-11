@@ -4,6 +4,7 @@ namespace Modules\Podcasts\Entities;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Scope;
 
 class PodcastComments extends Model
 {
@@ -15,4 +16,5 @@ class PodcastComments extends Model
     {
         return $this->morphTo();
     }
+
 }

@@ -1,6 +1,6 @@
 <?php
 namespace Modules\Podcasts\Http\Resources;
-use Modules\Podcasts\Entities\PodcastComments;
+use Modules\Podcasts\Entities\PodcastLikes;
 use Modules\Podcasts\Traits\PodcastsHelperTraits;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
@@ -26,7 +26,7 @@ class PodcastCategoriesCollection extends ResourceCollection
                 'views_count' => $item->views_count,
                 'shares_count' => $item->shares_count,
                 'followers_count' => $item->followers_count,
-                'user_liked' => $this->userLikedPodcastOrNot(PodcastComments::class, $item->id)
+                'user_liked' => $this->userLikedPodcastOrNot(PodcastLikes::class, $item->id)
             ];
         });
     }

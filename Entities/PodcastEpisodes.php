@@ -27,4 +27,9 @@ class PodcastEpisodes extends Model
     public function comments(){
         return $this->morphMany(PodcastComments::class, 'commentable');
     }
+
+    // Active
+    public function ScopeIsActive($query){
+        return $query->where('status', 1);
+    }
 }

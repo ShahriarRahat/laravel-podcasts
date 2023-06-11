@@ -20,4 +20,6 @@ Route::prefix('/podcasts')->group(function () {
     Route::get('/episodes',                             [PodcastsController::class, 'episodes'])->name('podcasts.episodes');
     Route::get('/favorites',                            [PodcastsController::class, 'favorites'])->name('podcasts.favorites');
     Route::get('like-unlike/{category}/{id}',           [PodcastsController::class, 'likeUnlike'])->name('podcasts.likeUnlike');
+    Route::get('comments/{category}/{id}',              [PodcastsController::class, 'getCommentsByParent'])->name('podcasts.comments');
+
 });

@@ -14,6 +14,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Modules\Podcasts\Entities\PodcastEpisodes;
 use Modules\Podcasts\Entities\FavoritePodcasts;
 use Modules\Podcasts\Entities\PodcastCategories;
+use Modules\Podcasts\Entities\PodcastComments;
 use Modules\Podcasts\Http\Resources\PodcastsCollection;
 use Modules\Podcasts\Http\Resources\PodcastEpisodesCollection;
 use Modules\Podcasts\Http\Resources\PodcastCategoriesCollection;
@@ -223,6 +224,48 @@ class PodcastsController extends Controller
 
         } catch (\Throwable $th) {
             return $this->respondWithError('Sorry! '.ucfirst($category).' Doesn\'t Exist',500);
+        }
+    }
+
+    ////////////////////////////////Comments////////////////////////////////
+    public function getCommentsByParent($category, $id){
+        // dd("ss");
+
+        try {
+            // if($category == 'podcast'){
+            //     $likeable_type = 'Modules\Podcasts\Entities\Podcast';
+            // }elseif($category == 'category'){
+            //     $likeable_type = 'Modules\Podcasts\Entities\PodcastCategories';
+            // }elseif($category == 'episode'){
+            //     $likeable_type = 'Modules\Podcasts\Entities\PodcastEpisodes';
+            // }elseif($category == 'comment'){
+            //     $likeable_type = 'Modules\Podcasts\Entities\PodcastComments';
+            // }else{
+            //     return $this->respondWithError('Sorry! '.ucfirst($category).' Isn\'t Allowed.',500);
+            // }
+
+            if($category == 'podcast'){
+                $data = Podcast::IsActive()->find($id);
+            }elseif($category == 'category'){
+                $data = PodcastCategories::IsActive()->find($id);
+            }elseif($category == 'episode'){
+                $data = PodcastEpisodes::IsActive()->find($id);
+            }elseif($category == 'comment'){
+                $data = PodcastComments::find($id);
+            }else{
+                return $this->respondWithError('Sorry! '.ucfirst($category).' Isn\'t Allowed.',500);
+            }
+
+            $comments = $data->comments()->paginate(10);
+
+            // return $this->respondWithSuccess('Comments', new CommentCollection($comments));    //Old Response - Don't drop
+
+            return response()->json([
+                'status' => 'ok',
+                'comments' => new PodcastCommentCollection($comments)
+            ]);
+        } catch (\Throwable $th) {
+            return $this->respondWithError($th->getMessage(),500);
         }
     }
 

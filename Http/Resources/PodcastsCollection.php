@@ -23,7 +23,7 @@ class PodcastsCollection extends ResourceCollection
                 'title' => $item->title,
                 'description' => $item->description,
                 'image' => @$item->image,
-                'category' => new PodcastCategoriesCollection([$item->category]),
+                'category_id' => @$item->category_id,
                 'type' => $item->type,
                 'free_listenables' => $item->free_listenables,
                 'likes_count' => $item->likes_count,
@@ -31,6 +31,7 @@ class PodcastsCollection extends ResourceCollection
                 'views_count' => $item->views_count,
                 'shares_count' => $item->shares_count,
                 'followers_count' => $item->followers_count,
+                'episodes' => new PodcastEpisodesCollection($item->episodes),
                 'user_liked' => $this->userLikedPodcastOrNot(PodcastLikes::class, $item->id)
             ];
         });

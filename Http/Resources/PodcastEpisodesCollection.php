@@ -34,6 +34,7 @@ class PodcastEpisodesCollection extends ResourceCollection
                 'shares_count' => $item->shares_count,
                 'downloads_count' => $item->downloads_count,
                 'followers_count' => $item->followers_count,
+                'download' => $item->can_download==1 ?  route('apiPodcastDownloader', $item->id): null,
                 'user_liked' => $this->userLikedPodcastOrNot(PodcastEpisodes::class, $item->id)
             ];
         });
